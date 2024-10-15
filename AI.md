@@ -81,3 +81,11 @@ apt install nvidia-cuda-toolkit
 Ref:
 
 - <https://github.com/QwenLM/Qwen2.5/issues/48>  
+
+---
+
+> FileExistsError: [Errno 17] File exists: '/opt/dlami/nvme/fft-8b/checkpoint-9/global_step9/offloaded_tensors'
+
+Ref:
+
+- <https://github.com/axolotl-ai-cloud/axolotl/issues/1617>  
