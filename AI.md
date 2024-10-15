@@ -73,3 +73,11 @@ Solution:
 ```shell
 apt install nvidia-cuda-toolkit
 ```
+
+---
+
+> Qwen: AttributeError: 'Qwen2Tokenizer' object has no attribute 'eod_id'
+
+Ref:
+
+- <https://github.com/QwenLM/Qwen2.5/issues/48>  
