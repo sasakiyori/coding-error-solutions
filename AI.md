@@ -89,3 +89,49 @@ Ref:
 Ref:
 
 - <https://github.com/axolotl-ai-cloud/axolotl/issues/1617>  
+
+---
+
+> k8s vLLM: Failed to infer device type
+
+Solution:
+
+```yaml
+spec:
+  runtimeClassName: nvidia
+```
+
+Ref:
+
+- <https://github.com/vllm-project/vllm/issues/8885>  
+
+---
+
+> k8s vLLM: The number of required GPUs exceeds the total number of available GPUs in the placement group
+
+Solution:
+
+`tensor-parallel-size` should not be bigger than `nvidia.com/gpu` limit from `resources`.  
+
+Ref:
+
+- <https://github.com/vllm-project/vllm/issues/3416>  
+
+---
+
+> Error 804: forward compatibility was attempted on non supported HW
+
+Solution:
+
+```shell
+# keep the cuda version and nvidia version equal
+ln -sf /usr/lib/x86_64-linux-gnu/libcuda.so.{your_actual_version} /usr/lib/x86_64-linux-gnu/libcuda.so.1
+
+# or:
+# upgrade/downgrade related driver, and then reboot
+```
+
+Ref:
+
+- <https://github.com/pytorch/pytorch/issues/40671>  
+- <https://zhuanlan.zhihu.com/p/361545761>  
