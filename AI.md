@@ -1,6 +1,6 @@
 # AI
 
-> CUDA_HOME does not exist, unable to compile CUDA op(s)
+## CUDA_HOME does not exist, unable to compile CUDA op(s)
 
 Solution:
 
@@ -15,7 +15,7 @@ Ref:
 
 ---
 
-> Model was not initialized with `Zero-3` despite being configured for DeepSpeed Zero-3. Please re-initialize your model via `Model.from_pretrained(...)` or `Model.from_config(...)` after creating your `TrainingArguments`
+## Model was not initialized with `Zero-3` despite being configured for DeepSpeed Zero-3. Please re-initialize your model via `Model.from_pretrained(...)` or `Model.from_config(...)` after creating your `TrainingArguments`
 
 Solution:
 
@@ -42,7 +42,7 @@ Ref:
 
 ---
 
-> vLLM: Cannot re-initialize CUDA in forked subprocess. To use CUDA with multiprocessing, you must use the 'spawn' start method.
+## vLLM: Cannot re-initialize CUDA in forked subprocess. To use CUDA with multiprocessing, you must use the 'spawn' start method.
 
 Solution:
 
@@ -56,7 +56,7 @@ Ref:
 
 ---
 
-> Unable to JIT load the async_io op due to it not being compatible due to hardware/software issue.
+## Unable to JIT load the async_io op due to it not being compatible due to hardware/software issue.
 
 Solution:
 
@@ -66,7 +66,7 @@ apt install libaio-dev
 
 ---
 
-> cannot find -lcurand
+## cannot find -lcurand
 
 Solution:
 
@@ -76,7 +76,7 @@ apt install nvidia-cuda-toolkit
 
 ---
 
-> Qwen: AttributeError: 'Qwen2Tokenizer' object has no attribute 'eod_id'
+## Qwen: AttributeError: 'Qwen2Tokenizer' object has no attribute 'eod_id'
 
 Ref:
 
@@ -84,7 +84,7 @@ Ref:
 
 ---
 
-> FileExistsError: [Errno 17] File exists: '/opt/dlami/nvme/fft-8b/checkpoint-9/global_step9/offloaded_tensors'
+## FileExistsError: [Errno 17] File exists: '/opt/dlami/nvme/fft-8b/checkpoint-9/global_step9/offloaded_tensors'
 
 Ref:
 
@@ -92,7 +92,7 @@ Ref:
 
 ---
 
-> k8s vLLM: Failed to infer device type
+## k8s vLLM: Failed to infer device type
 
 Solution:
 
@@ -107,7 +107,7 @@ Ref:
 
 ---
 
-> k8s vLLM: The number of required GPUs exceeds the total number of available GPUs in the placement group
+## k8s vLLM: The number of required GPUs exceeds the total number of available GPUs in the placement group
 
 Solution:
 
@@ -119,7 +119,7 @@ Ref:
 
 ---
 
-> Error 804: forward compatibility was attempted on non supported HW
+## Error 804: forward compatibility was attempted on non supported HW
 
 Solution:
 
@@ -135,3 +135,30 @@ Ref:
 
 - <https://github.com/pytorch/pytorch/issues/40671>  
 - <https://zhuanlan.zhihu.com/p/361545761>  
+
+---
+
+## k8s: RuntimeError: NCCL error: unhandled system error (run with NCCL_DEBUG=INFO for details); Error while creating shared memory segment /dev/shm/nccl-tZbXHB (size 9637888)  
+
+Solution:
+
+```shell
+# Sol1. disable nccl shm
+NCCL_SHM_DISABLE=1
+```
+
+```yaml
+# Sol2. increase k8s pod shm size (default is 64MB)
+spec:
+  containers:
+    - volumeMounts:
+      - name: shm
+        mountPath: /dev/shm
+  volumes:
+  - name: shm
+    emptyDir: {}
+```
+
+Ref:
+
+- <https://github.com/vllm-project/vllm/issues/7466>  
