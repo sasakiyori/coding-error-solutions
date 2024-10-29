@@ -42,7 +42,7 @@ Ref:
 
 ---
 
-## vLLM: Cannot re-initialize CUDA in forked subprocess. To use CUDA with multiprocessing, you must use the 'spawn' start method.
+## vLLM: Cannot re-initialize CUDA in forked subprocess. To use CUDA with multiprocessing, you must use the 'spawn' start method
 
 Solution:
 
@@ -56,7 +56,7 @@ Ref:
 
 ---
 
-## Unable to JIT load the async_io op due to it not being compatible due to hardware/software issue.
+## Unable to JIT load the async_io op due to it not being compatible due to hardware/software issue
 
 Solution:
 
@@ -162,3 +162,20 @@ spec:
 Ref:
 
 - <https://github.com/vllm-project/vllm/issues/7466>  
+
+---
+
+## Ollama: Error: open ~/.ollama/models/blobs/sha256-xxx-partial-0: permission denied
+
+Solution:
+
+```shell
+find ~/.ollama/models/ -type f -exec chown ollama:ollama {} \;
+find ~/.ollama/models/ -type d -exec chown ollama:ollama {} \;
+find ~/.ollama/models/ -type f -exec chmod 644 {} \;
+find ~/.ollama/models/ -type d -exec chmod 755 {} \;
+```
+
+Ref:
+
+- <https://www.reddit.com/r/linuxadmin/comments/1b55mr2/ollama_pulling_manifest_permission_denied/>  
