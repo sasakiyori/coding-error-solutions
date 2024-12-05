@@ -179,3 +179,11 @@ find ~/.ollama/models/ -type d -exec chmod 755 {} \;
 Ref:
 
 - <https://www.reddit.com/r/linuxadmin/comments/1b55mr2/ollama_pulling_manifest_permission_denied/>  
+
+---
+
+## TRL: chunk expects at least a 1-dimensional tensor
+
+Ref:
+
+- <https://github.com/huggingface/trl/issues/2338>  
