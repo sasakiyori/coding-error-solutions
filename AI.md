@@ -187,3 +187,30 @@ Ref:
 Ref:
 
 - <https://github.com/huggingface/trl/issues/2338>  
+
+## Sentence-Transformers: 'Qwen2Model' object has no attribute 'merge_and_unload'
+
+Solution:
+
+```python
+model = SentenceTransformer(model_name)
+peft_config = LoraConfig(task_type=TaskType.FEATURE_EXTRACTION, **peft_params)
+model.add_adapter(peft_config)
+
+# train ...
+
+model.save("/path/to/lora_adapter")
+del model
+torch_gc()
+
+merged = SentenceTransformer("/path/to/lora_adapter")
+merged[0].auto_model = merged[0].auto_model.merge_and_unload()
+merged[0].auto_model._hf_peft_config_loaded = False
+merged.save("/path/to/merged_model")
+del merged
+torch_gc()
+```
+
+Ref:
+
+- <https://github.com/UKPLab/sentence-transformers/issues/3246>
