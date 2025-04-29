@@ -214,3 +214,11 @@ torch_gc()
 Ref:
 
 - <https://github.com/UKPLab/sentence-transformers/issues/3246>
+
+## Scikit_learn: /xxx/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TLS block
+
+Solution:
+
+```shell
+export LD_PRELOAD=/xxx/libgomp-d22c30c5.so.1.0.0
+```
